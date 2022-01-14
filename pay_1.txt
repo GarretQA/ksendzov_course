@@ -1,6 +1,7 @@
 1231
 223r2
-QA_Ceck_test
+QA_Check_test
+Autotests_check
 3r
 23r
 
