@@ -1,0 +1,22 @@
+1. Bug ID:
+2. Title(summary):
+3. Project:
+4. Project_module:
+5. Build:
+6. Environment:
+6.1. Device:
+6.2. OS:
+6.3. Account_used:
+6.4. Connection_type:
+7. Reproducibility_rate:
+8. Steps_to_reproduce(to be added below):
+8.1.
+...
+9. Expected_result:
+10. Actual_result:
+11. Severity/Priority:
+12. Attachments(screenshots,video,logs or other):
+13. Assigned_to:
+14. Reporter:
+15. Bug_status:
+16. Date:
