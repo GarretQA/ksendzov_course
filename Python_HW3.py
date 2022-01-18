@@ -127,31 +127,53 @@ currency_convertor = item_2
 #          currency_result, uah_item)
 #     31.6 Сделать elif с остальными валютами
 #     31.7 Последним оставить else, при выполнений которого в консоль выведется (“Unknow currency”)
-currency_list = [usd_item, eur_item, uah_item, chf_item, rub_item, byn_item]
 if currency_convertor:
+    print('Enter the name of the currency which to convert in below:')
+    target_currency = input()
     currency_usd = usd_item
     target_currency_amount = 50
-    currency_result = 0
-    for target_currency in currency_list:
-        if target_currency == 'eur':
+    if target_currency == 'eur':
+        currency_result = round(target_currency_amount / usd_eur_rate, 2)
+        print(target_currency_amount, eur_item, '=', currency_result, usd_item)
+    elif target_currency == 'uah':
+        currency_result = round(target_currency_amount / usd_uah_rate, 2)
+        print(target_currency_amount, uah_item, '=', currency_result, usd_item)
+    elif target_currency == 'chf':
+        currency_result = round(target_currency_amount / usd_chf_rate, 2)
+        print(target_currency_amount, chf_item, '=', currency_result, usd_item)
+    elif target_currency == 'rub':
+        currency_result = round(target_currency_amount / usd_rub_rate, 2)
+        print(target_currency_amount, rub_item, '=', currency_result, usd_item)
+    elif target_currency == 'byn':
+        currency_result = round(target_currency_amount / usd_byn_rate, 2)
+        print(target_currency_amount, byn_item, '=', currency_result, usd_item)
+    elif target_currency == 'usd':
+        currency_result = round(target_currency_amount / usd_usd_rate, 2)
+        print(target_currency_amount, usd_item, '=', currency_result, usd_item)
+    else:
+        print('Unknown currency')
+    # Далее вариант выполнения через match - case
+    match target_currency:
+        case 'eur':
             currency_result = round(target_currency_amount / usd_eur_rate, 2)
             print(target_currency_amount, eur_item, '=', currency_result, usd_item)
-        elif target_currency == 'uah':
+        case 'uah':
             currency_result = round(target_currency_amount / usd_uah_rate, 2)
             print(target_currency_amount, uah_item, '=', currency_result, usd_item)
-        elif target_currency == 'chf':
+        case 'chf':
             currency_result = round(target_currency_amount / usd_chf_rate, 2)
             print(target_currency_amount, chf_item, '=', currency_result, usd_item)
-        elif target_currency == 'rub':
+        case 'rub':
             currency_result = round(target_currency_amount / usd_rub_rate, 2)
             print(target_currency_amount, rub_item, '=', currency_result, usd_item)
-        elif target_currency == 'byn':
+        case 'byn':
             currency_result = round(target_currency_amount / usd_byn_rate, 2)
             print(target_currency_amount, byn_item, '=', currency_result, usd_item)
-        elif target_currency == 'usd':
+        case 'usd':
             currency_result = round(target_currency_amount / usd_usd_rate, 2)
             print(target_currency_amount, usd_item, '=', currency_result, usd_item)
-        else:
+        case _:
             print('Unknown currency')
+# Закончен блок match - case
 else:
     print('Переменная currency_convertor =', item_3)
