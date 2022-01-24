@@ -1,0 +1,346 @@
+{
+	"info": {
+		"_postman_id": "ca50714d-3445-47a1-871b-a31b12e9f88c",
+		"name": "Postman_HW2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "first",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Check Response to be Correct String\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"This is the first responce from server!\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check Status Code to be 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"This is the first responce from server!\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://162.55.220.72:5005/first",
+					"protocol": "http",
+					"host": [
+						"162",
+						"55",
+						"220",
+						"72"
+					],
+					"port": "5005",
+					"path": [
+						"first"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user_info_3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is to be 200. It's great!\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var response_body_json = pm.response.json();\r",
+							"\r",
+							"var response_name = response_body_json.name;\r",
+							"var response_age = response_body_json.age;\r",
+							"var response_salary = response_body_json.salary;\r",
+							"var salary_1_5_year = response_body_json.family.u_salary_1_5_year\r",
+							"\r",
+							"var request = request.data;\r",
+							"\r",
+							"var request_age = request.age;\r",
+							"var request_name = request.name;\r",
+							"var request_salary = request.salary;\r",
+							"\r",
+							"pm.test(\"The response to have Name = Andrey\", function(){\r",
+							"    pm.expect(response_name).to.eql(\"Andrey\")\r",
+							"});\r",
+							"\r",
+							"pm.test(\"The response to have age = 35\", function(){\r",
+							"    pm.expect(response_age).to.eql(\"35\")\r",
+							"});\r",
+							"\r",
+							"pm.test(\"The response to have salary = 1000\", function(){\r",
+							"    pm.expect(response_salary).to.eql(1000)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"The response Name === The request Name\", function(){\r",
+							"    pm.expect(response_name).to.eql(request_name)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"The response Age === The request Age\", function(){\r",
+							"    pm.expect(response_age).to.eql(request_age)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"The response Salary === The request Salary\", function(){\r",
+							"    pm.expect(response_salary).to.eql(parseInt(request_salary))\r",
+							"});\r",
+							"\r",
+							"console.log(response_body_json.family);\r",
+							"\r",
+							"pm.test(\"Salary 1_5 year to be 4000\", function(){\r",
+							"    pm.expect(salary_1_5_year).to.be.eql(parseInt(request_salary)*4)\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Andrey",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "35",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "1000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/user_info_3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user_info_3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Object_info_3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code to be 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Parsing response to JSON \r",
+							"var responseJson = pm.response.json();\r",
+							"\r",
+							"// Parsing request to JSON in GET method\r",
+							"var query = {};\r",
+							"pm.request.url.query.all().forEach((param) => { query[param.key] = param.value});\r",
+							"let requestJson = query;\r",
+							"\r",
+							"// погнали тесты\r",
+							"pm.test(\"Response Name to be the same as Request Name\", function(){\r",
+							"    pm.expect(responseJson.name).to.eql(requestJson.name)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response Age to be the same as Request Age\", function(){\r",
+							"    pm.expect(responseJson.age).to.eql(requestJson.age)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response Salary to be the same as Request Salary\", function(){\r",
+							"    pm.expect(responseJson.salary).to.eql(parseInt(requestJson.salary))\r",
+							"});\r",
+							"\r",
+							"console.log(responseJson.family);\r",
+							"\r",
+							"let dog = responseJson.family.pets.dog\r",
+							"\r",
+							"// тестируем объект собака, расположенный внутри объекта семья в респонсе\r",
+							"\r",
+							"// проверяем у собаки наличие параметра имя\r",
+							"pm.test(\"The dog has a Name!\", function(){\r",
+							"    pm.expect(dog).to.have.property('name')\r",
+							"})\r",
+							"\r",
+							"// проверяем у собаки наличие параметра возраст\r",
+							"pm.test(\"The dog is Aged!\", function(){\r",
+							"    pm.expect(dog).to.have.property('age')\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"The dog's name is Luky!\", function(){\r",
+							"    pm.expect(dog.name).to.eql(\"Luky\")\r",
+							"});\r",
+							"\r",
+							"pm.test(\"The age of the dog is four years!\", function(){\r",
+							"    pm.expect(dog.age).to.eql(4)\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/object_info_3?name=Andrey&age=35&salary=1000",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"object_info_3"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Andrey"
+						},
+						{
+							"key": "age",
+							"value": "35"
+						},
+						{
+							"key": "salary",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "object_info_4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// прверяем статус-код\r",
+							"pm.test(\"Another 200 status code!\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// парсим респонс\r",
+							"const responseJson = pm.response.json();\r",
+							"\r",
+							"// парсим реквест ГЕТ метод\r",
+							"let query = {};\r",
+							"pm.request.url.query.all().forEach((param) => { query[param.key] = param.value});\r",
+							"const requestJson = query;\r",
+							"\r",
+							"//проверяем совпадение имени в реквесте и респонсе\r",
+							"pm.test(\"Name in response is the same as in request!\", function(){\r",
+							"    pm.expect(responseJson.name).to.eql(requestJson.name)\r",
+							"});\r",
+							"\r",
+							"// проверяем совпадение возраста в реквесте и респонсе\r",
+							"pm.test(\"Age in response is the same as in request!\", function(){\r",
+							"    pm.expect(responseJson.age).to.eql(parseInt(requestJson.age))\r",
+							"});\r",
+							"\r",
+							"console.log(requestJson.salary);\r",
+							"console.log(responseJson.salary);\r",
+							"console.log(responseJson.salary[0]);\r",
+							"console.log(responseJson.salary[1]);\r",
+							"console.log(responseJson.salary[2]);\r",
+							"\r",
+							"// проверяем элементы сэлэри в респонсе и реквесте\r",
+							"pm.test(\"0 element of response parameter salary is eqal to salary from request!\", function(){\r",
+							"    pm.expect(responseJson.salary[0]).to.eql(parseInt(requestJson.salary))\r",
+							"});\r",
+							"\r",
+							"pm.test(\"1st element of response parameter salary is eqal to salary * 2 from request!\", function(){\r",
+							"    pm.expect(parseInt(responseJson.salary[1])).to.eql(parseInt(requestJson.salary) * 2)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"2nd element of response parameter salary is eqal to salary * 3 from request!\", function(){\r",
+							"    pm.expect(parseInt(responseJson.salary[2])).to.eql(parseInt(requestJson.salary) * 3)\r",
+							"});\r",
+							"\r",
+							"// создаем и передаем переменные в окружение\r",
+							"let name = \"Garret\";\r",
+							"pm.environment.set(\"name\", name);\r",
+							"\r",
+							"let age = 35;\r",
+							"pm.environment.set(\"age\", age);\r",
+							"\r",
+							"let salary = 1000;\r",
+							"pm.environment.set(\"salary\", salary);\r",
+							"\r",
+							"// выводим циклом элементы сэлэри\r",
+							"for (let i = 0; i < 3; i++) {\r",
+							"    console.log(\"Element\", i,\"from array salary is\", responseJson.salary[i])\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/object_info_4?name=Andrey&age=35&salary=1000",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"object_info_4"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Andrey"
+						},
+						{
+							"key": "age",
+							"value": "35"
+						},
+						{
+							"key": "salary",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
