@@ -59,18 +59,22 @@
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
+							"// парсим респонс\r",
 							"var response_body_json = pm.response.json();\r",
 							"\r",
 							"var response_name = response_body_json.name;\r",
 							"var response_age = response_body_json.age;\r",
 							"var response_salary = response_body_json.salary;\r",
-							"var salary_1_5_year = response_body_json.family.u_salary_1_5_year\r",
+							"var salary_1_5_year = response_body_json.family.u_salary_1_5_year;\r",
 							"\r",
+							"// парсим реквест метод ПОСТ\r",
 							"var request = request.data;\r",
 							"\r",
 							"var request_age = request.age;\r",
 							"var request_name = request.name;\r",
 							"var request_salary = request.salary;\r",
+							"\r",
+							"//тесты\r",
 							"\r",
 							"pm.test(\"The response to have Name = Andrey\", function(){\r",
 							"    pm.expect(response_name).to.eql(\"Andrey\")\r",
@@ -96,6 +100,7 @@
 							"    pm.expect(response_salary).to.eql(parseInt(request_salary))\r",
 							"});\r",
 							"\r",
+							"// вывод в консоль параметра фэмили\r",
 							"console.log(response_body_json.family);\r",
 							"\r",
 							"pm.test(\"Salary 1_5 year to be 4000\", function(){\r",
@@ -337,6 +342,132 @@
 							"key": "salary",
 							"value": "1000"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user_info_2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200. Again!\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let response_body = pm.response.json();\r",
+							"let request_body = request.data;\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response has parameter start_qa_salary!\", function(){\r",
+							"    pm.expect(response_body).to.have.property(\"start_qa_salary\")\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has parameter qa_salary_after_6_months!\", function(){\r",
+							"    pm.expect(response_body).to.have.property(\"qa_salary_after_6_months\")\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has parameter qa_salary_after_12_months!\", function(){\r",
+							"    pm.expect(response_body).to.have.property(\"qa_salary_after_12_months\")\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has parameter qa_salary_after_1.5_year!\", function(){\r",
+							"    pm.expect(response_body).to.have.property(\"qa_salary_after_1.5_year\")\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has parameter qa_salary_after_3.5_years!\", function(){\r",
+							"    pm.expect(response_body).to.have.property(\"qa_salary_after_3.5_years\")\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has parameter Person!\", function(){\r",
+							"    pm.expect(response_body).to.have.property(\"person\")\r",
+							"});\r",
+							"\r",
+							"pm.test(\"start_qa_salary in response === salary in request\", function(){\r",
+							"    pm.expect(response_body.start_qa_salary).to.eql(parseInt(request_body.salary))\r",
+							"});\r",
+							"\r",
+							"pm.test(\"qa_salary_after_6_months in response === salary in request * 2\", function(){\r",
+							"    pm.expect(response_body.qa_salary_after_6_months).to.eql(parseInt(request_body.salary) * 2)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"qa_salary_after_12_months in response === salary in request * 2.7\", function(){\r",
+							"    pm.expect(response_body.qa_salary_after_12_months).to.eql(parseInt(request_body.salary) * 2.7)\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"qa_salary_after_1.5_year in response === salary in request * 3.3\", function(){\r",
+							"    pm.expect(response_body[\"qa_salary_after_1.5_year\"]).to.eql(request_body.salary * 3.3)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"qa_salary_after_3.5_years in response === salaryin request * 3.8\", function(){\r",
+							"    pm.expect(response_body[\"qa_salary_after_3.5_years\"]).to.eql(request_body.salary * 3.8)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"u_name parameter first element === salary in request\", function(){\r",
+							"    pm.expect(response_body.person.u_name[1]).to.eql(parseInt(request_body.salary))\r",
+							"});\r",
+							"\r",
+							"pm.test(\"u_age parameter === age in request\", function(){\r",
+							"    pm.expect(String(response_body.person.u_age)).to.eql(request_body.age)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"u_salary_5_years === salary from request * 4.2\", function(){\r",
+							"    pm.expect(response_body.person.u_salary_5_years).to.eql(parseInt(request_body.salary) * 4.2)\r",
+							"});\r",
+							"\r",
+							"let myArr = response_body.person.u_name;\r",
+							"\r",
+							"for (i = 0; i < myArr.length; i++) {\r",
+							"    console.log(myArr[i])\r",
+							"};\r",
+							"\r",
+							"let personObj = response_body.person;\r",
+							"\r",
+							"\r",
+							"for (let key in personObj) {\r",
+							"    if (personObj.hasOwnProperty(key)) {\r",
+							"        console.log(`${key}:${personObj[key]}`)        \r",
+							"    }\r",
+							"      \r",
+							"};"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "{{name}}",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "{{age}}",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "{{salary}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/user_info_2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user_info_2"
 					]
 				}
 			},
